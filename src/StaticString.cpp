@@ -132,7 +132,7 @@ bool StaticString::isSuffix(const StaticString& other) const {
 	//Returns true if other is a suffix of this string. Checks lengths and compares characters.
 	int i = 0;
 	if (other.len() <= len()) {
-		while (other.cstr[other.len() - i] == cstr[len() - i] && !(i > other.len())) {
+		while (!(i > other.len()) && other.cstr[other.len() - i] == cstr[len() - i]) {
 			i++;
 		}
 		if (len() == 0 || other.len() > len()) {
@@ -158,7 +158,7 @@ bool StaticString::isISuffix(const StaticString& other) const {
 	a.toLower();
 	b.toLower();
 	if (a.len() <= b.len()) {
-		while (a.cstr[a.len() - i] == b.cstr[b.len() - i] && !(i > a.len())) {
+		while (!(i > a.len()) && a.cstr[a.len() - i] == b.cstr[b.len() - i]) {
 			i++;
 		}
 		if (b.len() == 0 || a.len() > b.len()) {
