@@ -131,20 +131,19 @@ bool StaticString::isIPrefix(const StaticString& other) const {
 bool StaticString::isSuffix(const StaticString& other) const {
 	//Returns true if other is a suffix of this string. Checks lengths and compares characters.
 	int i = 0;
-	while (other.cstr[other.len() - i] == cstr[len() - i] && !(i > other.len())) {
-		i++;
-		if (len() == 0) {
-			break;
+	if (other.len() <= len()) {
+		while (other.cstr[other.len() - i] == cstr[len() - i] && !(i > other.len())) {
+			i++;
 		}
-	}
-	if (len() == 0 || other.len() > len()) {
-		return false;
-	}
-	else if (other.len() == 0) {
-		return true;
-	}
-	else if (other.length < i) {
-		return true;
+		if (len() == 0 || other.len() > len()) {
+			return false;
+		}
+		else if (other.len() == 0) {
+			return true;
+		}
+		else if (other.length < i) {
+			return true;
+		}
 	}
 	else {
 		return false;
@@ -158,24 +157,21 @@ bool StaticString::isISuffix(const StaticString& other) const {
 	StaticString b = *this;
 	a.toLower();
 	b.toLower();
-	while (a.cstr[a.len() - i] == b.cstr[b.len() - i] && !(i > a.len())) {
-		i++;
-		if (len() == 0) {
-			break;
+	if (a.len() <= b.len()) {
+		while (a.cstr[a.len() - i] == b.cstr[b.len() - i] && !(i > a.len())) {
+			i++;
+		}
+		if (b.len() == 0 || a.len() > b.len()) {
+			return false;
+		}
+		else if (a.len() == 0) {
+			return true;
+		}
+		else if (a.length < i) {
+			return true;
 		}
 	}
-	if (b.len() == 0 || a.len() > b.len()) {
-		return false;
-	}
-	else if (a.len() == 0) {
-		return true;
-	}
-	else if (a.length < i) {
-		return true;
-	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 StaticString& StaticString::trim() {
